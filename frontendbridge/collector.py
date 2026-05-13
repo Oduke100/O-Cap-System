@@ -96,6 +96,7 @@ def collect_account():
                     "equity":   info.equity,
                     "floating": info.profit,
                 }
+                state["total_pnl"]  = info.profit
         time.sleep(POLL_INTERVAL)
 
 def collect_portfolio_ticks():

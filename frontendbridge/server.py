@@ -101,7 +101,7 @@ async def handler(websocket):
 
 async def main():
     print(f"[{LOG_PREFIX}] WebSocket running on ws://localhost:{WS_PORT}")
-    async with websockets.serve(handler, "localhost", WS_PORT):
+    async with websockets.serve(handler, "0.0.0.0", WS_PORT):
         await asyncio.Future()
 
 def run():

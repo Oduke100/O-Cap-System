@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { createChart, CrosshairMode, LineStyle } from "lightweight-charts";
 
 // ─── CONFIG ───────────────────────────────────────────────────────────────────
-const WS_URL          = "ws://localhost:8765";
+const WS_URL          = import.meta.env.VITE_WS_URL ?? "ws://localhost:8765";
 const WS_RECONNECT_MS = 3000;
 const DEFAULT_SYMBOL  = "EURUSD";
 const DEFAULT_TF      = "M5";
@@ -1038,6 +1038,10 @@ function RightPanel({ appState, wsStatus, streamUrls, tradedSymbols }) {
 }
 
 // ─── MAIN ─────────────────────────────────────────────────────────────────────
+import MobileTerminal from "./Mobile";
+
+const _isMobile = window.innerWidth < 900 || /Mobi|Android|iPhone/i.test(navigator.userAgent);
+
 export default function OCapTerminal() {
   const [tradedSymbols,    setTradedSymbols]    = useState(TRADED_SYMBOLS);
   const [portfolioSymbols, setPortfolioSymbols] = useState(PORTFOLIO_SYMBOLS);
@@ -1066,6 +1070,7 @@ export default function OCapTerminal() {
     DISCONNECTED:{color:"#ff3355",label:"✕ DISCONNECTED"},
   }[wsStatus]||{color:"#4a7a9b",label:"?"};
 
+  if (_isMobile) return <MobileTerminal/>;
   return (
     <div style={{position:"fixed",inset:0,background:"#040810",color:"#c8d8e8",fontFamily:"'JetBrains Mono','Courier New',monospace",fontSize:11,display:"flex",flexDirection:"column",overflow:"hidden"}}>
       <style>{`
