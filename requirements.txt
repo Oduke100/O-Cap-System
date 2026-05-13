@@ -1,0 +1,8 @@
+numpy
+python-dotenv
+MetaTrader5
+yfinance
+hmmlearn
+statsmodels
+websocket-client
+pyzmq
